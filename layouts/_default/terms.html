@@ -1,20 +1,49 @@
 {{ define "main" }}
 <h1 class="page-title">All tags</h1>
 
-{{ $biggest := 1 }}
+<!-- {{ $biggest := 1 }}
 {{ $smallest := 1 }}
 {{ $max := 3 }}
 {{ $min := 1 }}
-{{ $size := $min }}
+{{ $size := $min }} -->
+<!-- {{ $data := .Data }} -->
 
-{{ $data := .Data }}
+{{ if not (eq (len $.Site.Taxonomies.tags) 0) }}
+    {{ $fontUnit := "rem" }}
+    {{ $largestFontSize := 2.5 }}
+    {{ $smallestFontSize := 1.2 }}
+    {{ $fontSpread := sub $largestFontSize $smallestFontSize }}
+    {{ $max := add (len (index $.Site.Taxonomies.tags.ByCount 0).Pages) 1 }}
+    {{ $min := len (index $.Site.Taxonomies.tags.ByCount.Reverse 0).Pages }}
+    {{ $spread := sub $max $min }}
+    {{ $fontStep := div $fontSpread $spread }}
+
 <div class="tag-cloud">
-	<ul class="tags">
-		{{ range $key, $value := .Data.Terms.ByCount }}
-		{{ $size := (add (mul (div $value.Count $biggest) (sub $max $min)) $min) }}
-		{{ $size := (cond (eq $biggest $smallest) $min $size) }}
-		<li><a style="font-size: {{ $size }}rem;" href="{{ $.Site.LanguagePrefix | absURL }}{{ $data.Plural }}/{{ $value.Name | urlize }}/">{{ $value.Name }}</a></li>
-		{{ end }}
-	</ul>
+	<!-- <ul class="tags"> -->
+	<!-- {{ range $key, $value := .Data.Terms.ByCount }}
+	{{ $size := (add (mul (div $value.Count $biggest) (sub $max $min)) $min) }}
+	{{ $size := (cond (eq $biggest $smallest) $min $size) }}
+	<a style="font-size: {{ $size }}rem;" href="{{ $.Site.LanguagePrefix | absURL }}{{ $data.Plural }}/{{ $value.Name | urlize }}/">{{ $value.Name }}</a>
+	{{ end }} -->
+	<!-- </ul> -->
+
+	<!-- {{ $AllRegularPagesCount := len .Site.RegularPages }}
+	{{ range $elem := .Data.Terms.Alphabetical }}
+	<a style="font-size: {{ (add 0.8 (mul 10 (div (float $elem.Count) $AllRegularPagesCount))) }}rem;" href="{{ $elem.Page.Permalink }}">
+	  {{- .Page.Title -}}
+	</a>
+	{{ end }} -->
+
+	{{ range $name, $taxonomy := $.Site.Taxonomies.tags }}
+	{{ $currentTagCount := len $taxonomy.Pages }}
+	{{ $currentFontSize := (add $smallestFontSize (mul (sub $currentTagCount $min) $fontStep) ) }}
+	{{ $count := len $taxonomy.Pages }}
+	{{ $weigth := div (sub (math.Log $count) (math.Log $min)) (sub (math.Log $max) (math.Log $min)) }}
+	{{ $currentFontSize := (add $smallestFontSize (mul (sub $largestFontSize $smallestFontSize) $weigth) ) }}
+	{{ $currentLineWeight := (add $currentFontSize 0.7)}}
+	<!--Current font size: {{$currentFontSize}}-->
+	<a style="font-size:{{$currentFontSize}}{{$fontUnit}}; line-height:{{$currentLineWeight}}{{$fontUnit}};" href="{{ $.Site.LanguagePrefix | absURL }}{{ $data.Plural }}/{{ $name | urlize }}">{{ $name }}</a>
+	{{ end }}
 </div>
+{{ end }}
 {{ end }}

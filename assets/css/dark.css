@@ -1,37 +1,61 @@
 body {
-  color: white;
-  background-color: #202124;
+  color: var(--darkTextcolor);
+  background-color: var(--darkBgcolor);
+}
+
+.meta {
+  color: var(--darkMetacolor);
+}
+
+time {
+  color: var(--darkMetacolor);
+}
+
+.postmeta * {
+  color: var(--darkMetacolor);
+}
+
+img {
+  border: 3px dotted var(--darkBordercl);
+  max-width: 100%;
+}
+
+.toc {
+  border-top: 0.2rem dotted var(--darkBordercl);
+  border-bottom: 0.2rem dotted var(--darkBordercl);
 }
 
 ::-moz-selection {
-  background: blue;
-  color: #fff;
+  background: var(--darkHovercolor);
+  color: #000;
   text-shadow: none;
 }
 
 ::selection {
-  background: red;
-  color: #fff;
+  background: var(--darkHovercolor);
+  color: #000;
   text-shadow: none;
 }
 
 hr {
-  border-top: 3px dotted blue;
+  border-top: 3px dotted var(--darkBordercl);
 }
 code {
-  background-color: lightblue;
-  color: black;
+  background-color: var(--darkCodebgcolor);
+  color: var(--darkTextcolor);
   text-decoration: bold;
   padding: 0.1em 0.2em;
 }
 pre {
-  background-color: #272822;
+  background-color: var(--darkCodebgcolor);
+  color: var(--darkTextcolor);
   line-height: 1.4;
   overflow-x: auto;
   padding: 1em;
 }
 blockquote {
-  border-color: blue;
+  border-color: var(--darkBordercl);
+  color: var(--darkQuotecolor);
 }
 
 h1,
@@ -40,7 +64,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #ddd;
+  color: var(--darkTextcolor);
 }
 h1::before {
   color: var(--darkMaincolor);
@@ -67,13 +91,22 @@ h6::before {
   content: "###### ";
 }
 
+footer {
+  border-top: 0.2rem dashed var(--darkBordercl);
+}
+
 a {
   border-bottom: 3px solid var(--darkMaincolor);
   color: inherit;
 }
 a:hover {
-  background-color: var(--darkMaincolor);
+  background-color: var(--darkHovercolor);
   color: black;
+}
+
+.readmore {
+  color: var(--darkHovercolor);
+  border-bottom: none;
 }
 
 .site-description a {
@@ -83,16 +116,17 @@ a:hover {
   color: black;
 }
 
-.tags a {
+.tag-cloud a {
   border-bottom: 3px solid var(--darkMaincolor);
+  color: var(--darkTextcolor);
 }
-.tags a:hover {
-  background-color: var(--darkMaincolor);
+.tag-cloud a:hover {
+  background-color: var(--darkHovercolor);
   color: black;
 }
 
 .site-title a {
-  color: white;
+  color: var(--darkTextcolor);
   text-decoration: none !important;
 }
 
@@ -156,4 +190,27 @@ a:hover {
   content: 'Markdown';
   background: royalblue;
   color: whitesmoke ;
+}
+
+/* add toc  */
+.toc a {
+  border-bottom: none;
+  color: inherit;
+  text-decoration: none;
+}
+
+.toc a:hover{
+  background-color: var(--darkHovercolor);
+  color: #000;
+}
+
+.toc ul > li::before {
+  content: '# ';
+  color: var(--darkMaincolor);
+}
+
+.toc ul > li > ul > li::before {
+  content: '- ';
+  color: var(--darkMaincolor);
+  font-size: .7rem;
 }

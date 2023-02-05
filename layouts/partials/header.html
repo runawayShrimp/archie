@@ -1,6 +1,14 @@
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<style>
+		html {
+        cursor: url("/favicon-32x32.png"), default;
+    	}
+		a {
+        cursor: url("/favicon-32x32.png"), default;
+    	}
+	</style>
 	{{- $title := ( .Title ) -}}
 	{{- $siteTitle := ( .Site.Title ) -}}
 	{{- if .IsHome -}}
@@ -10,7 +18,7 @@
 	{{- end -}}
 
 	{{- if isset .Site.Params "favicon" -}}
-	<link rel="icon" type="image/png" href={{ .Site.Params.favicon }} />
+	<link rel="icon" href="{{ .Site.Params.favicon }}" />
 	{{- end -}}
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,4 +68,5 @@
 	<script src="{{ $.Site.BaseURL }}{{ . }}"></script>
 	{{- end }}
 	{{- end }}
+
 </head>

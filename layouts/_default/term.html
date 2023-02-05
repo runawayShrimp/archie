@@ -1,11 +1,11 @@
 {{ define "main" }}
 {{ if isset .Data "Term" }}
-<h1>Entries tagged - "{{ .Data.Term }}"</h1>
+<h1>Entries tagged - #{{ .Data.Term }}</h1>
 {{ else }}
 <h1 class="page-title">All articles</h1>
 {{ end }}
 
-<ul class="posts">
+<!-- <ul class="posts">
 	{{- range .Data.Pages -}}
 		{{- if (not (in (.Site.Params.excludedTypes | default (slice "page")) .Type)) -}}
 		<li class="post">
@@ -13,5 +13,25 @@
 		</li>
 		{{- end -}}
 	{{- end -}}
+</ul> -->
+<ul class="post-list">
+
+	{{ $pages := .Data.Pages }}
+  
+	{{ range (sort $pages "Date" "desc") }}
+	  {{ $pageYear := (.Date.Format "2006") }}
+	  {{ if (ne $pageYear ($.Scratch.Get "year")) }}
+	  {{ $.Scratch.Set "year" $pageYear }}
+	  <h2 class="post-list-year">{{ $pageYear }}</h2>
+	  {{ end }}
+	  <li class="post-item">
+		<div class="meta">
+		  <time datetime="{{ time .Date }}" itemprop="datePublished">{{ .Date.Format (.Site.Params.dateFormat | default "2006-01-02") }}</time>
+		</div>
+		<span>    
+		  <a class="" href="{{ .Permalink }}">{{ if .Title }} {{ .Title }} {{ else }} Untitled {{ end }}</a>
+		</span>
+	  </li>
+	{{ end }}
 </ul>
 {{ end }}

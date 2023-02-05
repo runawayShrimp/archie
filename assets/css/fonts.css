@@ -12,6 +12,23 @@
        url('../fonts/fira-sans-v10-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
        url('../fonts/fira-sans-v10-latin-regular.svg#FiraSans') format('svg'); /* Legacy iOS */
 }
+
+/* Palanquin */
+@font-face {
+  font-display: swap;
+  font-family: 'Palanquin';
+  font-style: normal;
+  src: url('../fonts/palanquin-medium.ttf') format('truetype');
+}
+
+/* Sansita */
+@font-face {
+  font-display: swap;
+  font-family: 'Sansita';
+  font-style: italic;
+  src: url('../fonts/Sansita-BoldItalic.otf') format('OpenType');
+}
+
 /* roboto-mono-regular - latin */
 @font-face {
   font-display: swap;
